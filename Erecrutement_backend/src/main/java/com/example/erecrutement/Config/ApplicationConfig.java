@@ -1,8 +1,8 @@
 package com.example.erecrutement.Config;
 
-import com.example.erecrutement.Repository.UserRepository;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
+import com.example.erecrutement.User_CSR.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class ApplicationConfig {
-    private   UserRepository userRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Bean
     public UserDetailsService userDetailsService(){
