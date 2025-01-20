@@ -1,4 +1,4 @@
-package com.example.erecrutement.User_CSR.DTO;
+package com.example.erecrutement.CSR.User_CSR.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
-    private String token;
-    private String message;
+public class AuthenticationRequest {
+    private String email;
+    private String password;
 }
