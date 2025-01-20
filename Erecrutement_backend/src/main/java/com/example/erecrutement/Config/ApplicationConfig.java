@@ -1,7 +1,7 @@
 package com.example.erecrutement.Config;
 
 
-import com.example.erecrutement.User_CSR.UserRepository;
+import com.example.erecrutement.CSR.User_CSR.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

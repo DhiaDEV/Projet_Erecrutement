@@ -1,4 +1,4 @@
-package com.example.erecrutement.User_CSR;
+package com.example.erecrutement.CSR.User_CSR;
 
 import com.example.erecrutement.Entities.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;

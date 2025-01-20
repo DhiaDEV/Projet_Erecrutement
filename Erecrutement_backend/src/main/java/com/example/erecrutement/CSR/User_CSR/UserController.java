@@ -1,7 +1,7 @@
-package com.example.erecrutement.User_CSR;
+package com.example.erecrutement.CSR.User_CSR;
 
-import com.example.erecrutement.User_CSR.DTO.AuthenticationRequest;
-import com.example.erecrutement.User_CSR.DTO.AuthenticationResponse;
+import com.example.erecrutement.CSR.User_CSR.DTO.AuthenticationRequest;
+import com.example.erecrutement.CSR.User_CSR.DTO.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;

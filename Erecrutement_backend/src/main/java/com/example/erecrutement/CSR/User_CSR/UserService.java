@@ -1,8 +1,8 @@
-package com.example.erecrutement.User_CSR;
+package com.example.erecrutement.CSR.User_CSR;
 
+import com.example.erecrutement.CSR.User_CSR.DTO.AuthenticationRequest;
 import com.example.erecrutement.Config.JwtService;
-import com.example.erecrutement.User_CSR.DTO.AuthenticationRequest;
-import com.example.erecrutement.User_CSR.DTO.AuthenticationResponse;
+import com.example.erecrutement.CSR.User_CSR.DTO.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
