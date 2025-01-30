@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class CandidatureService {
@@ -25,5 +26,25 @@ public class CandidatureService {
                 .message("Candidature added successfully")
                 .candidature(candidature)
                 .build();
+    }
+
+    public List<Candidature> getAll() {
+        return candidatureRepository.findAll();
+    }
+
+
+    public CandidatureResponse getCandidatureById(Long id) {
+        try {
+            var candidature =candidatureRepository.findById(id)
+                    .orElseThrow(()->new RuntimeException("Candidature not found !"));
+            return CandidatureResponse.builder()
+                    .candidature(candidature)
+                    .message("Candidature found successfully")
+                    .build();
+        }catch (RuntimeException ex){
+            return CandidatureResponse.builder()
+                    .message(ex.getMessage())
+                    .build();
+        }
     }
 }
