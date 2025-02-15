@@ -1,0 +1,131 @@
+<section class="h-full mb-12 pt-4">
+  <div class="mt-7 flex items-center justify-center max-h-screen">
+    <div class="flex space-x-4">
+      <!-- Premier bouton avec dropdown -->
+      <div class="relative inline-block text-left">
+        <button
+          class="bg-white hover:bg-gray-50 h-10 pr-2 py-0.5 border-2 text-sm font-medium text-gray-800 shadow-inner rounded-md focus:outline-none flex flex-start items-center flex-row-reverse"
+          (click)="toggleDropdown('dropdown1')"
+        >
+        {{ dropdownPosteLabel }}
+          <svg
+            class="w-5 h-5 text-gray-800 mr-1 mt-1 "
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <!-- Menu déroulant -->
+        <div *ngIf="isDropdownOpen['dropdown1']" class="absolute left-0 w-56 mt-2 origin-top-left bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg focus:outline-none">
+          <div class="py-1">
+            <a *ngFor="let poste of postes" (click)="selectOption('dropdown1', poste)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{ poste }}</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deuxième bouton avec dropdown -->
+      <div class="relative inline-block text-left">
+        <button
+          class="bg-white hover:bg-gray-50 h-10 pr-2 py-0.5 border-2 text-sm font-medium text-gray-800 shadow-inner rounded-md focus:outline-none flex flex-start items-center flex-row-reverse"
+          (click)="toggleDropdown('dropdown2')"
+        >
+        {{ dropdownStatutLabel }}
+          <svg
+            class="w-5 h-5 text-gray-800 mr-1 mt-1"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <!-- Menu déroulant -->
+        <div *ngIf="isDropdownOpen['dropdown2']" class="absolute left-0 w-56 mt-2 origin-top-left bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg focus:outline-none">
+          <div class="py-1">
+            <a *ngFor="let statut of statuts" (click)="selectOption('dropdown2', statut)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{ statut === 'Tous Les Status' ? statut : getStatusDisplay(statut) }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+
+  <!-- Tableau des candidatures -->
+  <table *ngIf="filterCandidatures().length > 0" class="tbcss min-w-full bg-white border rounded-lg shadow">
+    <thead>
+      <tr>
+        <th class="border border-slate-300">Nom</th>
+        <th class="border border-slate-300">Email</th>
+        <th class="border border-slate-300">Poste</th>
+        <th class="border border-slate-300">Date d'application</th>
+        <th class="border border-slate-300">CV</th>
+        <th class="border border-slate-300">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let candidature of filterCandidatures()">
+        <td class="border border-slate-300">{{ candidature.name }}</td>
+        <td class="border border-slate-300">{{ candidature.email }}</td>
+        <td class="border border-slate-300">{{ candidature.job.title }}</td>
+        <td class="border border-slate-300">{{ candidature.applicationDate | date:'dd/MM/yyyy' }}</td>
+        <td class="border border-slate-300 w-auto">
+          <div class="flex items-center justify-center h-full">
+            <button class="text-white bg-purple-500 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-[4px] text-sm py-1.5 flex justify-center items-center text-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 w-[100px]">
+              Télécharger
+            </button>
+          </div>
+        </td>
+
+        <td class="border border-slate-300 w-auto">
+          <div class="flex items-center justify-center h-full">
+            <!-- Si le statut est "NOUVEAU", afficher un bouton -->
+            <button
+              *ngIf="candidature.status === Status.PENDING"
+              type="button"
+              class="text-white bg-purple-500 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-[4px] text-sm py-1.5 flex justify-center items-center text-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 w-[100px]"
+              (click)="openPopup(candidature)"
+            >
+              {{ getStatusDisplay(candidature.status) }}
+            </button>
+
+            <!-- Sinon, afficher simplement le statut -->
+            <span *ngIf="candidature.status !== Status.PENDING" class="text-white bg-purple-500 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-[4px] text-sm py-1.5 flex justify-center items-center text-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 w-[100px]">
+              {{ getStatusDisplay(candidature.status) }}
+            </span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Message d'erreur si aucune candidature n'est trouvée -->
+  <div *ngIf="filterCandidatures().length === 0" class="cssmsg text-red-500 text-center mt-4 border border-red-500 p-4 bg-red-100 rounded">
+    Aucune candidature ne correspond à vos critères de filtrage.
+  </div>
+
+  <!-- Popup Modal -->
+  <div *ngIf="showPopup" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+      <h2 class="text-xl font-semibold mb-4 text-center">Voulez-vous accorder ce candidat ?</h2>
+      <div class="flex justify-end">
+        <button
+          class="text-white bg-purple-500 hover:bg-purple-700 px-4 py-2 rounded mr-2"
+          (click)="updateStatus()"
+        >
+          Confirmer
+        </button>
+        <button
+          class="text-white bg-gray-500 hover:bg-gray-700 px-4 py-2 rounded"
+          (click)="closePopup()"
+        >
+          Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

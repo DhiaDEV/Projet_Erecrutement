@@ -27,9 +27,6 @@ public class Candidature {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToMany(mappedBy = "candidature")
-    private List<Interview> interviews;
-
     @ManyToOne
     @JoinColumn(name = "job_id")
     private Job job;

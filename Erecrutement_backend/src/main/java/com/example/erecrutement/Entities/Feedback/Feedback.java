@@ -16,7 +16,7 @@ public class Feedback {
 
     private String feedback;
 
-    @OneToOne
-    @JoinColumn(name = "interview_id")
+    @ManyToOne
+    @JoinColumn(name = "id_interview")
     private Interview interview;
 }

@@ -3,6 +3,7 @@ package com.example.erecrutement.CSR.Candidature_CSR;
 import com.example.erecrutement.CSR.Candidature_CSR.DTO.CandidatureRequest;
 import com.example.erecrutement.CSR.Candidature_CSR.DTO.CandidatureResponse;
 import com.example.erecrutement.Entities.Candidature.Candidature;
+import com.example.erecrutement.Entities.Candidature.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +30,12 @@ public class CandidatureController {
     public ResponseEntity<CandidatureResponse> GetCandidatureById(@PathVariable Long id){
         return ResponseEntity.ok(candidatureService.getCandidatureById(id));
     }
+
+    @PutMapping("/update-status/{id}")
+    public ResponseEntity<Candidature> updateCandidatureStatus(@PathVariable Long id, @RequestParam Status newStatus) {
+        Candidature updatedCandidature = candidatureService.updateStatus(id, newStatus);
+        return ResponseEntity.ok(updatedCandidature);
+    }
+
 
 }
