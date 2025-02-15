@@ -18,16 +18,11 @@ public class Interview {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    private String time;
     private String location;
     private String motif;
 
     @Enumerated(EnumType.STRING)
     private Phase phase;
-
-    @OneToOne(mappedBy = "interview", cascade = CascadeType.ALL)
-    private Feedback feedback;
-
     @ManyToOne
     @JoinColumn(name = "candidature_id")
     private Candidature candidature;
@@ -39,4 +34,9 @@ public class Interview {
     @ManyToOne
     @JoinColumn(name = "rh_id")
     private User rh;
+
+    // Getter pour récupérer l'ID du manager
+    public Long getUserId() {
+        return manager != null ? manager.getId() : null;
+    }
 }

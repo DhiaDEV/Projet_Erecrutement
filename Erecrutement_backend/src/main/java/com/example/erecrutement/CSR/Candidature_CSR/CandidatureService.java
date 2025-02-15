@@ -47,4 +47,11 @@ public class CandidatureService {
                     .build();
         }
     }
+
+    public Candidature updateStatus(Long id, Status newStatus) {
+        Candidature candidature = candidatureRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Candidature non trouvée"));
+        candidature.setStatus(newStatus);
+        return candidatureRepository.save(candidature);
+    }
 }

@@ -1,0 +1,67 @@
+<div class=" flex justify-center items-center font-[sans-serif] h-full min-h-screen p-4"
+  style="background-image: url(/assets/images/bg-login.jpg); background-repeat: no-repeat; background-size: cover;">
+  <div class="max-w-md w-full mx-auto">
+    <form
+      (ngSubmit)="onSubmit()"
+      class="bg-opacity-70 bg-white rounded p-6 shadow-[0_2px_16px_-3px_rgba(125,126,131,0.3)]"
+    >
+      <div class="mb-12">
+        <h3 class="text-gray-800 text-3xl font-bold">Se Connecter</h3>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <div class="relative flex items-center">
+          <input
+            [(ngModel)]="emailInput"
+            (input)="clearError('email')"
+            id="email"
+            name="email"
+            type="text"
+            required
+            class="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 pl-2 pr-8 py-3 outline-none placeholder:text-gray-800"
+            placeholder="Entrer votre email"
+          />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#333" stroke="#333" class="w-[18px] h-[18px] absolute right-2"
+            viewBox="0 0 682.667 682.667">
+            <!-- SVG code -->
+          </svg>
+        </div>
+        <p *ngIf="emailError" class="text-red-500 text-xs mt-1">{{ emailError }}</p>
+      </div>
+
+      <!-- Password -->
+      <div class="mt-6">
+        <div class="relative flex items-center">
+          <input
+            [(ngModel)]="passwordInput"
+            (input)="clearError('password')"
+            id="password"
+            name="password"
+            type="password"
+            required
+            class="bg-transparent w-full text-sm text-gray-800 border-b border-gray-400 focus:border-gray-800 pl-2 pr-8 py-3 outline-none placeholder:text-gray-800"
+            placeholder="Entrer votre mot de passe"
+          />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#333" stroke="#333"
+            class="w-[18px] h-[18px] absolute right-2 cursor-pointer" viewBox="0 0 128 128">
+            <!-- SVG code -->
+          </svg>
+        </div>
+        <p *ngIf="passwordError" class="text-red-500 text-xs mt-1">{{ passwordError }}</p>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-12">
+        <button
+          type="submit"
+          class="w-full py-2.5 px-4 text-sm font-semibold tracking-wider rounded text-white bg-purple-500 hover:bg-purple-700 focus:outline-none"
+        >
+          Se Connecter
+        </button>
+      </div>
+
+      <hr class="my-6 border-gray-400" />
+    </form>
+  </div>
+</div>
